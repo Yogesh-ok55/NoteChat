@@ -12,27 +12,24 @@ const Home = () => {
 
     return (
         <>
-        <Navbar />
-        <div className='home-container'>
-        <div className='home-top'>
-        <UploadNote/>
-        <Author />
-        </div>
-           <div className='main'>
+      <Navbar />
+      <div className='home-container'>
+        <div className='main'>
           <div className='left-container'>
-          <Homeprofile />
-           </div> 
-           <div className='center-container'>
-           <RenderPost /> 
-           </div> 
-           <div className='right-container'>
-            <BuildConversation />
-           </div>
+            <UploadNote />
+            <Homeprofile />
           </div>
-          
+          <div className='center-container'>
+            <RenderPost />
+          </div>
+          <div className='right-container'>
+            <Author />
+            <BuildConversation />
+          </div>
         </div>
-        <Footer />
-        </>
+      </div>
+      <Footer />
+    </>
     )
 }
 

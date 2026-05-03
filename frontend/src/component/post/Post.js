@@ -122,7 +122,7 @@ const Post = ({ note, postUser }) => {
           )}
         </div>
 
-        <div className="main-post" style={{ height: "57vh" }}>
+        <div className="main-post">
           <div className="main-post-img-container" onClick={seenhandler}>
             <img
               src={
@@ -131,13 +131,13 @@ const Post = ({ note, postUser }) => {
                   : pf + "images-notes.jpg"
               }
               alt="note-thumbnail"
-            ></img>
+            />
             <div className="View-pdf-1" onClick={seenhandler}>
-              <p>View-pdf</p>
-              <img src="/image/icons8-view-50.png" />
+              <p>View PDF</p>
+              <img src="/image/icons8-view-50.png" alt="view icon" />
             </div>
           </div>
-          <div className="main-post-about" style={{ lineHeight: "1.4" }}>
+          <div className="main-post-about">
               <p className="main-post-notename">{note.notename}</p>
             <p className="main-post-description">Description:</p>
             <p className="main-post-desc">{note.desc}</p>

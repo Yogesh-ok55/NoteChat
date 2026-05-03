@@ -67,11 +67,13 @@ const SearchButton = styled.button`
 `;
 const UserWrapper=styled.div`
     background-color:white;
-    height: 70vh;
+    min-height: 260px;
+    max-height: 420px;
     display: flex;
     width: 100%;
     padding: 10px;
     flex-direction: column;
+    overflow-y: auto;
 `;
 
 
@@ -90,34 +92,38 @@ const RenderPost = () => {
       setissearching(false)
   };
   return (
-    <>
-     <Container>
-      <MessageContainer>
-        <MessageTitle>Chat with users</MessageTitle>
-      </MessageContainer>
-      <Wrapper>
-        <SearchContainer onSubmit={searchHandler}>
-          <Input
-            placeholder="Search users ..."
-            onChange={(e) => setsearchedItem(e.target.value)}
-            required
-          />
-          <SearchButton type="submit">
-            <Search style={{ color: "gray", fontSize: 30 }} />
-          </SearchButton>
-        </SearchContainer>
-      </Wrapper>
-    </Container>
-    {
-      issearching?<CircularLoader item={"users"}/>:
-    <UserWrapper>
-    {
-      users?.length===0 ? <h3 style={{textAlign:"center"}}>Not Found</h3>:
-        users?.map((u,i)=>(<SearchedUser receiverUser={u} key={i}/>))
-    }
-    </UserWrapper>
-     }
-    </>
+    <div className="build-conversation-wrap">
+      <Container>
+        <MessageContainer>
+          <MessageTitle>Chat with users</MessageTitle>
+        </MessageContainer>
+        <Wrapper>
+          <SearchContainer onSubmit={searchHandler}>
+            <Input
+              placeholder="Search users ..."
+              onChange={(e) => setsearchedItem(e.target.value)}
+              required
+            />
+            <SearchButton type="submit">
+              <Search style={{ color: "gray", fontSize: 30 }} />
+            </SearchButton>
+          </SearchContainer>
+        </Wrapper>
+      </Container>
+      {issearching ? (
+        <CircularLoader item={"users"} />
+      ) : (
+        <UserWrapper>
+          {users?.length === 0 ? (
+            <h3 style={{ textAlign: "center" }}>Not Found</h3>
+          ) : (
+            users?.map((u, i) => (
+              <SearchedUser receiverUser={u} key={i} />
+            ))
+          )}
+        </UserWrapper>
+      )}
+    </div>
   );
 };
 

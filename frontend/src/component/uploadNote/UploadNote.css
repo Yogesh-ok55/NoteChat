@@ -17,91 +17,110 @@
 }
 .uploadNote-post{
     width: 100%;
-    border: 3px dotted #216bb9;
+    border: 2px dashed #3e7dde;
     display: flex;
-    padding: 10px;
+    padding: 24px 20px;
     align-items: center;
     cursor: pointer;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 16px;
+    border-radius: 24px;
+    background: #f8fbff;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.uploadNote-post:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 20px 40px rgba(24, 51, 102, 0.12);
 }
 .uploadNote-post-text{
-   font-weight: 300;
-   font-size: 30px;
+   font-weight: 500;
+   font-size: 22px;
+   margin: 0;
+   color: #0f172a;
 }
 
 .uploadNote-form-container{
-    height: 65vh;
+    max-height: 62vh;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
-    padding: 8px;
-    border: 2px dotted #2a78cb;
+    padding: 20px;
+    border: 1px solid rgba(56, 116, 217, 0.24);
+    border-radius: 24px;
+    background: #ffffff;
 }
 .upload-note-top{
    display: flex;
    justify-content: space-between;
-   border-bottom: 1px solid brown;
+   border-bottom: 1px solid rgba(15, 23, 42, 0.08);
    align-items: center;
-   height: 12vh;
-   box-shadow: rgba(0, 0, 0, 0.1) 0px 0.0625em 0.0025em, rgba(0, 0, 0, 0.1) 0px 0.025em 0.1em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+   padding-bottom: 14px;
+   margin-bottom: 18px;
 }
 .upload-note-top-left{
     display: flex;
     align-items: center;
+    gap: 10px;
 }
 #close-icon{
    cursor: pointer;
 }
 .upload-note-title{
-    font-size: 25px;
+    font-size: 22px;
+    margin: 0;
 }
 #upload-note-input{
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 300;
-    height: 7vh;
-    width: 95%;
-    padding: 10px;
-    border-top: none;
-    border-right: none;
-    border-left: none;
+    min-height: 54px;
+    width: 100%;
+    padding: 12px 10px;
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    border-radius: 14px;
     outline: none;
-    margin-top: 2vh;
+    margin-top: 16px;
+    background: #f8fafc;
 }
 .uploadNote-form{
     display: flex;
     flex-direction: column;
 }
 .uploadNote-form-submit-button{
-    margin-top: 3vh;
-    padding: 9px;
-    font-size: 20px;
-    width: 12%;
+    margin-top: 24px;
+    padding: 12px 20px;
+    font-size: 18px;
+    width: fit-content;
     outline: none;
     border: none;
     color: white;
     background-color: #167eec;
     cursor: pointer;
+    border-radius: 14px;
 }
 .custom-file-upload{
-    padding: 8px;
+    padding: 14px 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 7vh;
-    margin-top: 3vh;
-    width: 40%;
-    background-color: #f5f7f9;
+    height: 60px;
+    margin-top: 18px;
+    width: 100%;
+    background-color: #f7f9fc;
     cursor: pointer;
+    border-radius: 16px;
+    border: 1px solid rgba(15, 23, 42, 0.08);
 }
 .custom-file-upload p{
-     font-size: 20px;
-     font-weight: 300;
+     font-size: 16px;
+     font-weight: 400;
+     margin: 0;
 }
 .img-icon{
-    color: white;
+    color: #167eec;
 }
-#thumbnail-file-upload::-webkit-file-upload-button {
-    visibility: hidden;
-  }
+#thumbnail-file-upload {
+    display: none;
+}
 
 @media only screen and (max-width: 768px) {
     .uploadNote-container-top{

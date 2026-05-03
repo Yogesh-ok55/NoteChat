@@ -24,26 +24,35 @@ const Wrapper = styled.div`
   ${mobile({ marginTop: "1vh"})}
 `;
 const SearchContainer = styled.form`
-  border: 1px solid lightgray;
+  border: 1px solid rgba(148, 163, 184, 0.5);
   display: flex;
   align-items: center;
-  padding: 5px;
-  ${mobile({ width: "80%" })}
+  padding: 6px 10px;
+  width: 100%;
+  max-width: 100%;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 16px 28px rgba(15, 23, 42, 0.06);
+  ${mobile({ width: "100%" })}
 `;
 
 const Input = styled.input`
   border: none;
   outline: none;
-  width: 500px;
-  height: 40px;
+  width: 100%;
+  min-width: 0;
+  height: 44px;
   font-size: 16px;
-  ${mobile({ height: "30px" })}
-  padding: 5px;
+  ${mobile({ height: "36px" })}
+  padding: 0 12px;
+  background: transparent;
 `;
 const SearchButton = styled.button`
   border: none;
   outline: none;
-  background-color: white;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 8px;
 `;
 const ShowmoreButton = styled.button`
   margin: auto;
@@ -104,8 +113,7 @@ const RenderPost = () => {
    console.log(postcount)
   if (issearching) return <CircularLoader item={"notes"}/>;
   return (
-    <>
-    
+    <div className="notes-panel">
       <Wrapper>
         <SearchContainer onSubmit={searchHandler}>
           <Input
@@ -117,12 +125,17 @@ const RenderPost = () => {
           </SearchButton>
         </SearchContainer>
       </Wrapper>
-      {
-        notes?.length===0 ? <h3 style={{textAlign:"center"}}>Not Found</h3>:
-        notes.map((p,i)=><HomePost x={p} key={i}/>)
-      }
-      <ShowmoreButton onClick={()=>{setpostcount(postcount+5)}}>Show More <ArrowForward /></ShowmoreButton>
-    </>
+      {notes?.length === 0 ? (
+        <div className="notes-empty">
+          <h3>Not Found</h3>
+        </div>
+      ) : (
+        notes.map((p, i) => <HomePost x={p} key={i} />)
+      )}
+      <ShowmoreButton onClick={() => { setpostcount(postcount + 5); }}>
+        Show More <ArrowForward />
+      </ShowmoreButton>
+    </div>
   );
 };
 

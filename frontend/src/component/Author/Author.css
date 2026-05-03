@@ -1,64 +1,101 @@
+.author-card-wrap{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 540px;
+}
+.author-header-row{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.author-nav-buttons{
+  display: flex;
+  gap: 10px;
+}
+.author-nav-btn{
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(15, 23, 42, 0.08);
+  color: #10223c;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+.author-nav-btn:hover{
+  transform: scale(1.05);
+}
 .author-container{
     display: flex;
+    gap: 16px;
+    padding-bottom: 10px;
     overflow-x: auto;
-    padding: 2vh 1vh;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
 }
 .author-container::-webkit-scrollbar {
     display: none;
 }
-
-.author-container {
-  -ms-overflow-style: none;  
-  scrollbar-width: none;  
-}
- 
 .author-card{
-    min-width: 170px;
-    min-height: 180px;
-    box-shadow: 0px 0px 10px 7px rgb(233, 238, 233);
-    border-radius: 8px;
-    margin-left: 1vh;
-    margin-right: 1vh;
+    min-width: 270px;
+    min-height: 230px;
+    border-radius: 20px;
+    box-shadow: 0 24px 45px rgba(15, 23, 42, 0.08);
+    background: #f8fbff;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 1vh;
+    padding: 20px 16px;
+    border: 1px solid rgba(56, 116, 217, 0.12);
+    flex: 0 0 270px;
+    scroll-snap-align: start;
 }
 .author-image{
-    height: 60px;
-    width: 60px;
+    height: 74px;
+    width: 74px;
     object-fit: cover;
     border-radius: 50%;
-    border: 2px solid cornflowerblue;
+    border: 2px solid #3e7dde;
 }
 .author-name{
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 10px 0 6px;
+    color: #10223c;
 }
 .featured-author{
-    font-size: 27px;
-    font-weight: 200;
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 18px;
+    color: #10223c;
 }
 .author-notes-followers-container{
     display: flex;
+    gap: 12px;
+    margin-top: 12px;
 }
 .author-notes-followers{
      display: flex;
      flex-direction: column;
      align-items: center;
-     width:75px;
+     width: 70px;
 }
 .author-notes-followers-count{
     font-size: 18px;
-    color: cornflowerblue;
+    color: #3e7dde;
 }
 .author-notes-followers-text{
     font-size: 13px;
-    font-weight: 300;
+    font-weight: 400;
+    color: #475569;
 }
 .seperation-image{
-   width: 20px;
-
+   width: 18px;
+   opacity: 0.6;
 }
  
 .author-institution{

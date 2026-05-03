@@ -1,209 +1,178 @@
-import { Badge } from "@material-ui/core";
-import { Search, Chat, Menu,AccountCircle,ExitToApp } from "@material-ui/icons";
+import { Search, Chat, AccountCircle, ExitToApp } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { mobile } from "../responsive";
-import { useSelector,useDispatch} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import {logout,search} from "../redux/userRedux";
-import { useRef } from "react";
-import TopNavbar from './TopNavbar/TopNavbar'
+import { logout, search } from "../redux/userRedux";
+
 const Container = styled.div`
-  height: 60px;
-  ${mobile({ height: "50px" })}
+  width: 100%;
+  padding: 18px 32px;
+  background: rgba(15, 23, 42, 0.94);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(12px);
+  ${mobile({ padding: "14px 18px" })}
 `;
 
 const Wrapper = styled.div`
-  padding: 10px 20px;
+  max-width: 1220px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  ${mobile({ padding: "10px 10px" })}
+  gap: 18px;
+  ${mobile({ flexDirection: "column", alignItems: "stretch" })}
 `;
 
-const Left = styled.div`
-  flex: 1;
-  display: flex;
-  align-items: center;
-  ${mobile({ flex:5 })}
-`;
-
-const Language = styled.span`
-  font-size: 14px;
-  cursor: pointer;
-  ${mobile({ display: "none" })}
+const Brand = styled(Link)`
+  color: #ffffff;
+  font-size: 1.7rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  text-decoration: none;
+  ${mobile({ textAlign: "center" })}
 `;
 
 const SearchContainer = styled.form`
-  border: 1px solid lightgray;
+  flex: 1;
+  max-width: 440px;
   display: flex;
   align-items: center;
-  margin-left: 25px;
-  ${mobile({ marginLeft:"0px" })}
-  padding: 5px;
+  padding: 10px 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  ${mobile({ width: "100%", marginTop: "12px" })}
 `;
 
-const Input = styled.input`
+const SearchInput = styled.input`
+  flex: 1;
+  background: transparent;
   border: none;
   outline: none;
-  ${mobile({ width: "120px" })}
+  color: #f8fafc;
+  font-size: 0.95rem;
+  &::placeholder {
+    color: #cbd5e1;
+  }
 `;
 
-const Center = styled.div`
-  flex: 1;
-  text-align: center;
- 
-`;
-
-const Logo = styled.h1`
-  font-weight: bold;
-  ${mobile({ fontSize: "24px",display:"none" })}
-`;
-const Right = styled.div`
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  ${mobile({ flex: 10, justifyContent: "space-around" })}
-`;
-
-const MenuItem = styled.div`
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  margin-left: 25px;
-  ${mobile({marginLeft: "15px", marginRight:"5px",flexDirection:"column" })}
-`;
-const Item=styled.p`
-    font-size: 20px;
-    margin-left: "2px";
-    color: #115195;
-    ${mobile({ fontSize: "13px"})}
-`
-const CartItem = styled.div`
-  font-size: 14px;
-  cursor: pointer;
-  margin-left: 25px;
-  ${mobile({ fontSize: "12px", marginLeft: "15px" ,marginRight:"5px" })}
-`;
-const Button = styled.button`
+const IconButton = styled.button`
   border: none;
-  background: none;
-  outline: none;
+  background: transparent;
+  color: #60a5fa;
   cursor: pointer;
-  margin-left: 2px;
-  font-size: 20px;
-  color: #185393;
-  ${mobile({fontSize:"13px"})}
+  padding: 0;
+  display: flex;
+  align-items: center;
 `;
-const SearchButton = styled.button`
-   border: none;
-   outline: none;
-   background-color: white;
+
+const NavActions = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  ${mobile({ justifyContent: "center", flexWrap: "wrap" })}
 `;
-const TopNavWrapper=styled.div`
-    display: none;
-    ${mobile({ display:"block" })}
-`
- 
+
+const ActionLink = styled(Link)`
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #e2e8f0;
+  text-decoration: none;
+  padding: 10px 18px;
+  border-radius: 14px;
+  transition: background 0.2s ease, transform 0.2s ease;
+  &:hover {
+    background: rgba(96, 165, 250, 0.12);
+    transform: translateY(-1px);
+  }
+`;
+
+const ActionButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  background: rgba(96, 165, 250, 0.14);
+  color: #dbeafe;
+  padding: 10px 18px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+  &:hover {
+    background: rgba(96, 165, 250, 0.2);
+    transform: translateY(-1px);
+  }
+`;
+
+const Username = styled.span`
+  font-size: 0.95rem;
+  color: #f8fafc;
+`;
 
 const Navbar = () => {
-//   const quantity = useSelector(state=>state.cart.quantity)
-  const currentUser= useSelector(state=>state.user.currentUser)
-  const [searchedValue,setsearchedValue]=useState(null)
-  const item=useRef();
-  let navigate = useNavigate();
+  const currentUser = useSelector((state) => state.user.currentUser);
+  const [searchedValue, setsearchedValue] = useState("");
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const logoutHandler=()=>{
+
+  const logoutHandler = () => {
     dispatch(logout());
     navigate("/login");
-  }
-  const searchHandler=(e)=>{
+  };
+
+  const searchHandler = (e) => {
     e.preventDefault();
     dispatch(search(searchedValue));
-  }
-  useEffect(()=>{
+  };
+
+  useEffect(() => {
     dispatch(search(null));
-  },[])
-  const HandleNav =()=>{
-      console.log(item.current.display)
-         if(item.current.display==="flex"){
-            item.current.display="none";
-         }
-         else{
-            item.current.display="flex";
-         }
-  }
+  }, [dispatch]);
+
   return (
-    <>
-    <TopNavWrapper>
-     <TopNavbar />
-     </TopNavWrapper>
     <Container>
       <Wrapper>
-        <Left>
-          <Language>EN</Language>
-          <SearchContainer onSubmit={searchHandler}>
-            <Input placeholder="Search" onChange={(e)=>setsearchedValue(e.target.value)}/>
-            <SearchButton type="submit">
-            <Search style={{ color: "gray", fontSize: 16 }} />
-            </SearchButton >
-          </SearchContainer>
-        </Left>
-        <Center>
-        <Link to="/" style={{textDecoration:"none",color:"black"}}>
-          <Logo>NoteChat</Logo>
-          </Link>
-        </Center>
-        <Right>
-          
-            { 
-             currentUser?
-             <>
-             
-             <Link to={"/profile/"+currentUser._id} style={{textDecoration:"none"}}>
-             <MenuItem>
-             <AccountCircle />
-             <Item>
-             {currentUser.username}
-             </Item>
-             </MenuItem>
-             </Link>
-           
-             <MenuItem>
-             <ExitToApp onClick={logoutHandler}/>
-             <Button onClick={logoutHandler}>Logout</Button>
-             </MenuItem>
-             </>
-             :
-             <>
-              <MenuItem>
-             <Link to="/login" style={{textDecoration:"none",color:"black"}}>
-              SignIn
-             </Link>
-             </MenuItem>
-             <MenuItem>
-             <Link to="/register" style={{textDecoration:"none",color:"black"}}>
-              Register
-             </Link>
-             </MenuItem>
-             </>
-          }
-         
-          <Link to="/searchuser" style={{textDecoration:"none"}}>
-               <MenuItem>
-               <Chat style={{color:"#1b6dc4"}} />
-               <Item>
-               Chat
-               </Item>
-               </MenuItem>
-          </Link>
-         
-        </Right>
+        <Brand to="/">NoteChat</Brand>
+        <SearchContainer onSubmit={searchHandler}>
+          <SearchInput
+            placeholder="Search notes, authors, chats..."
+            onChange={(e) => setsearchedValue(e.target.value)}
+            value={searchedValue}
+          />
+          <IconButton type="submit">
+            <Search style={{ fontSize: 22 }} />
+          </IconButton>
+        </SearchContainer>
+        <NavActions>
+          {currentUser ? (
+            <>
+              <ActionLink to={`/profile/${currentUser._id}`}>
+                <AccountCircle />
+                <Username>{currentUser.username}</Username>
+              </ActionLink>
+              <ActionButton onClick={logoutHandler}>
+                <ExitToApp /> Logout
+              </ActionButton>
+            </>
+          ) : (
+            <>
+              <ActionLink to="/login">Sign In</ActionLink>
+              <ActionLink to="/register">Register</ActionLink>
+            </>
+          )}
+          <ActionLink to="/searchuser">
+            <Chat /> Chat
+          </ActionLink>
+        </NavActions>
       </Wrapper>
     </Container>
-    </>
   );
 };
 
